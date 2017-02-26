@@ -20,5 +20,5 @@ ATopDownGameMode::ATopDownGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass2(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
+	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass2(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
 }

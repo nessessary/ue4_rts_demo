@@ -1,6 +1,16 @@
+2017/2/26
+1. SpawnActor可以直接创建c++ actor
+2. 蓝图类加载失败， 原因未知， 未来尽量不使用蓝图， 直接用c++构造对象
+
+2017/2/25
+1. 找到指定获取蓝图类的方式， 比如已有蓝图类Character_Blueprint, 在c++里初始化该类, 并GetClass
+	1) 使用GetAllActorsOfClass的方式, 先在Editer里把对象拖至World里创建
+	2) 直接创建蓝图类 , ConstructorHelpers::FClassFinder, 该方法只能在构造函数中使用
+
+
 2017/2/21
 中间因为一些家里的事情耽误了， 现在也只能晚上写， 大概一小时
-1. 用python写一个类生成器
+1. 用python写一个类生成器, 该方式无效， 需要在editer里用向导创建
 2. 实现一个Spawner
 	1) 定时器
 	2) 创建Pawn
