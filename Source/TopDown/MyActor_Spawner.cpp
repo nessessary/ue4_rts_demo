@@ -61,7 +61,7 @@ void AMyActor_Spawner::SpawnSingleZombie()
 		//ConstructObject<UObject>(p);
 		// can't use p->GetClass()
 		ATopDownCharacter* pCharacter = GetWorld()->SpawnActor<ATopDownCharacter>(p, NewLocation, FRotator::ZeroRotator);
-		
+		//pCharacter->SpawnDefaultController
 	}
 
 
