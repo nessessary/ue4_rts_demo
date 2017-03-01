@@ -1,1 +1,1 @@
-..\..\UnrealEngine-release\Engine\Build\BatchFiles\GenerateProjectFiles.bat "d:\uwork\ue_project\ue4_rts_demo\TopDown.uproject" -Game -Engine
+..\..\UnrealEngine-release\Engine\Build\BatchFiles\GenerateProjectFiles.bat "%~dp0TopDown.uproject" -Game -Engine
