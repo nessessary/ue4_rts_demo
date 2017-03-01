@@ -5,6 +5,7 @@
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
+#include "MyActor_Spawner.h"
 
 ATopDownCharacter::ATopDownCharacter()
 {
@@ -56,6 +57,10 @@ ATopDownCharacter::ATopDownCharacter()
 	SelectedBound->SetDecalMaterial(DecalMaterialAsset.Object);
 	SelectedBound->DecalSize = FVector(16.0f, 32.0f, 32.0f);
 	SelectedBound->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f).Quaternion());
+
+	FVector newLocation = GetActorLocation() + FVector(0,0,30);
+	AMyActor_Spawner* spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
+
 }
 
 void ATopDownCharacter::Tick(float DeltaSeconds)
