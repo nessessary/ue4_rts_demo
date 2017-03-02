@@ -58,9 +58,9 @@ ATopDownCharacter::ATopDownCharacter()
 	SelectedBound->DecalSize = FVector(16.0f, 32.0f, 32.0f);
 	SelectedBound->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f).Quaternion());
 
-	FVector newLocation = GetActorLocation() + FVector(0,0,30);
-	AMyActor_Spawner* spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
-
+	UE_LOG(LogTemp, Warning, TEXT("ATopDownCharacter::ATopDownCharacter"));
+	//FVector newLocation = FVector(-180.000000, -350.000000, 171.000000);
+	//AMyActor_Spawner* spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
 }
 
 void ATopDownCharacter::Tick(float DeltaSeconds)

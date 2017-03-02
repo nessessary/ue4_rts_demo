@@ -5,6 +5,7 @@
 #include "TopDownPlayerController.h"
 #include "TopDownCharacter.h"
 #include "CustomHUD.h"
+#include "MyActor_Spawner.h"
 
 ATopDownGameMode::ATopDownGameMode()
 {
@@ -20,5 +21,19 @@ ATopDownGameMode::ATopDownGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
-	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass2(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
+	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::ATopDownGameMode"));
+	if (GWorld) {	// if not , will crash
+		FVector newLocation = FVector(-180.000000, -350.000000, 171.000000);
+		_spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
+		
+	}
 }
+
+void ATopDownGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::EndPlay"));
+	//GWorld->RemoveActor(_spawner, true);
+	//_spawner->Destroy();
+	GetWorld()->DestroyActor(_spawner, true);
+}
+
