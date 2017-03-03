@@ -16,8 +16,8 @@ AMyActor_Spawner::AMyActor_Spawner()
 	auto component = CreateDefaultSubobject<UBoxComponent>(TEXT("SpawnBox"), false);
 	component->SetupAttachment(RootComponent);
 
-	auto mesh = CreateDefaultSubobject<UMeshComponent>(TEXT("MyMesh"), false);
-	mesh->SetupAttachment(component);
+	//auto mesh = CreateDefaultSubobject<UMeshComponent>(TEXT("MyMesh"), false);
+	//mesh->SetupAttachment(component);
 	
 }
 

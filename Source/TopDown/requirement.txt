@@ -1,0 +1,4 @@
+1.创建一个兵营
+2. 兵营生产士兵走到指定位置
+Blueprint'/Game/TopDownCPP/Blueprints/MyBuildCamp.MyBuildCamp'
+StaticMesh'/Engine/BasicShapes/Cube.Cube'
