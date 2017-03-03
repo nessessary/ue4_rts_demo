@@ -4,12 +4,13 @@
 #include "engine.h"
 #include "TopDownCharacter.h"
 #include "MyActor_Spawner.h"
-
+#include "BuildCamp.h"
 
 // Sets default values
 AMyActor_Spawner::AMyActor_Spawner()
 {
 	static int i = 0;
+	Zombie_num = 0;
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"), false);
@@ -21,8 +22,9 @@ AMyActor_Spawner::AMyActor_Spawner()
 	//mesh->SetupAttachment(component);
 	if (i < 1) {
 		i++;
-		Init();
 	}
+	Init();
+
 }
 
 // Called when the game starts or when spawned
@@ -61,12 +63,12 @@ void AMyActor_Spawner::SpawnSingleZombie()
 	
 
 	UClass* p = LoadClass<ATopDownCharacter>(NULL, TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter.TopDownCharacter_C"));	
-	if (p) {
+	if (p && Zombie_num<3) {
 		//NewObject<ACharacter>(p);
 		//ConstructObject<UObject>(p);
 		// can't use p->GetClass()
 		ATopDownCharacter* pCharacter = GetWorld()->SpawnActor<ATopDownCharacter>(p, NewLocation, FRotator::ZeroRotator);
-		//pCharacter->SpawnDefaultController
+		Zombie_num++;
 	}
 
 
@@ -74,6 +76,9 @@ void AMyActor_Spawner::SpawnSingleZombie()
 
 void AMyActor_Spawner::Init()
 {
-	
+	// x = up(+),down(-)
+	// y = left(-), right(+)
+	if(GetWorld())
+		GetWorld()->SpawnActor<ABuildCamp>(ABuildCamp::StaticClass(), FVector(-700, -400, 200), FRotator::ZeroRotator);
 }
 

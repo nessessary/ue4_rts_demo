@@ -26,9 +26,12 @@ ATopDownGameMode::ATopDownGameMode()
 	if (GWorld) {	// if not , will crash
 		FVector newLocation = FVector(-180.000000, -350.000000, 171.000000);
 		TArray<AActor*> list;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyActor_Spawner::StaticClass(), list);
-		if(list.Num()==0)
-			_spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
+		if (GetWorld()) {
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyActor_Spawner::StaticClass(), list);
+			if (list.Num() == 0)
+				_spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
+
+		}
 		
 	}
 }

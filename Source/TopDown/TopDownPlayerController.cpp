@@ -70,6 +70,10 @@ void ATopDownPlayerController::PlayerTick(float DeltaTime)
 	}
 	else
 	{
+		TArray<AActor*> list;
+		if (GetWorld()) {
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATopDownCharacter::StaticClass(), list);
+		}
 		// 鼠标释放事件
 		// 判断角色点在选择矩形内
 		ATopDownCharacter* MyPawn = Cast<ATopDownCharacter>(GetPawn());
