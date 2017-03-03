@@ -22,9 +22,13 @@ ATopDownGameMode::ATopDownGameMode()
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::ATopDownGameMode"));
+	_spawner = nullptr;
 	if (GWorld) {	// if not , will crash
 		FVector newLocation = FVector(-180.000000, -350.000000, 171.000000);
-		_spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
+		TArray<AActor*> list;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyActor_Spawner::StaticClass(), list);
+		if(list.Num()==0)
+			_spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
 		
 	}
 }
@@ -34,6 +38,7 @@ void ATopDownGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::EndPlay"));
 	//GWorld->RemoveActor(_spawner, true);
 	//_spawner->Destroy();
-	GetWorld()->DestroyActor(_spawner, true);
+	if(_spawner)
+		GetWorld()->DestroyActor(_spawner, true);
 }
 

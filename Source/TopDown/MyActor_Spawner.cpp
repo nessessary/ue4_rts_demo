@@ -9,6 +9,7 @@
 // Sets default values
 AMyActor_Spawner::AMyActor_Spawner()
 {
+	static int i = 0;
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"), false);
@@ -18,7 +19,10 @@ AMyActor_Spawner::AMyActor_Spawner()
 
 	//auto mesh = CreateDefaultSubobject<UMeshComponent>(TEXT("MyMesh"), false);
 	//mesh->SetupAttachment(component);
-	
+	if (i < 1) {
+		i++;
+		Init();
+	}
 }
 
 // Called when the game starts or when spawned
@@ -66,5 +70,10 @@ void AMyActor_Spawner::SpawnSingleZombie()
 	}
 
 
+}
+
+void AMyActor_Spawner::Init()
+{
+	
 }
 

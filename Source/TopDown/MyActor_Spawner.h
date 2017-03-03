@@ -23,4 +23,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "ZombieSpawner")
 	void SpawnSingleZombie();
+
+	void Init();
 };
