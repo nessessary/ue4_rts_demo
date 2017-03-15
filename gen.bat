@@ -1,1 +1,2 @@
-..\..\UnrealEngine-release\Engine\Build\BatchFiles\GenerateProjectFiles.bat "%~dp0TopDown.uproject" -Game -Engine
+@echo off
+python gen.py
