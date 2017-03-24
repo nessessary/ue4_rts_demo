@@ -1,6 +1,7 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/Character.h"
+#include "AIController.h"
 #include "TopDownCharacter.generated.h"
 
 UCLASS(Blueprintable)
@@ -37,5 +38,7 @@ private:
 
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* SelectedBound;
+
+	AAIController* PlayAI;
 };
 

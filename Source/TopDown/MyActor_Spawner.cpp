@@ -51,7 +51,7 @@ void AMyActor_Spawner::SpawnSingleZombie()
 	//产生..一个box
 	//GetWorld()->SpawnActor()
 	FVector NewLocation = GetActorLocation() + FVector(0.f, 0.f, 1.f);
-	UE_LOG(LogTemp, Warning, TEXT("%f, %f, %f"), NewLocation.X, NewLocation.Y, NewLocation.Z );
+	//UE_LOG(LogTemp, Warning, TEXT("%f, %f, %f"), NewLocation.X, NewLocation.Y, NewLocation.Z );
 
 	// Spawn the new actor (Using GetClass() instead of AMySpawner so that if someone derives a new class  
 	// from AMySpawner we spawn an instance of that class instead)  

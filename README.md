@@ -1,11 +1,9 @@
 # ue4_rts_demo
-based on ue4.14
 
-TopDown => rts demo
-1. copy content and  intermediate to current folder
+由TopDown修改出一个RTS game
 
+只使用C++， 不使用蓝图, 也不使用Editor创建任何对象， 全部由c++实现
 
-gen sln 
-my sample
-D:\uwork\ue_project\ue4_rts_demo>..\..\UnrealEngine-release\Engine\Build\BatchFiles\GenerateProjectFiles.bat "d:\uwork\ue_project\ue4_rts_demo\TopDown.uproject" -Game
-engine folder is D:\uwork\UnrealEngine-release
+先用模板创建TopDown， 再把Content目录及Config目录拷贝至代码目录
+
+调用gen创建出sln
