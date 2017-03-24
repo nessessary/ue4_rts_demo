@@ -156,50 +156,62 @@ void ATopDownPlayerController::MoveToTouchLocation(const ETouchIndex::Type Finge
 	}
 }
 
+int g_switch = 0;
 void ATopDownPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
-	//TArray<AActor*> list;
-	//if (GetWorld()) {
-	//	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATopDownCharacter::StaticClass(), list);
-	//}
-	//for (int32 i = 2; i < list.Num(); i++) 
-	////if(list.Num()>1)
-	//{
-	//	ATopDownCharacter* const MyPawn = (ATopDownCharacter* )list[i];
-	//	if (MyPawn )
-	//	{
-	//		MyPawn->UnPossessed();
-	//		//if (g_changePawn == 1) 
-	//		{
-	//			// contorller attach pawn
-	//			this->SetPawn(MyPawn);
-	//			// attach controller
-	//			MyPawn->PossessedBy(this);
-	//			// Modify MovementComp's MovementMode
-	//			((ATopDownCharacter*)MyPawn)->Restart();
-	//		}
-	//		UNavigationSystem* const NavSys = GetWorld()->GetNavigationSystem();
-	//		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
-
-	//		// We need to issue move command only if far enough in order for walk animation to play correctly
-	//		if (NavSys && (Distance > 120.0f))
-	//		{
-	//			NavSys->SimpleMoveToLocation(this, DestLocation);
-	//		}
-	//	}
-	//}
-	APawn* const MyPawn = GetPawn();
-	if (MyPawn)
+	TArray<AActor*> list;
+	if (GetWorld()) {
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATopDownCharacter::StaticClass(), list);
+	}
+	for (int32 i = 0; i < list.Num(); i++) 
+	//if(list.Num()>1)
 	{
-		UNavigationSystem* const NavSys = GetWorld()->GetNavigationSystem();
-		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
-
-		// We need to issue move command only if far enough in order for walk animation to play correctly
-		if (NavSys && (Distance > 120.0f))
+		ATopDownCharacter* const MyPawn = (ATopDownCharacter* )list[i];
+		if (MyPawn )
 		{
-			NavSys->SimpleMoveToLocation(this, DestLocation);
+			//MyPawn->UnPossessed();
+			////if (g_changePawn == 1) 
+			//{
+			//	// contorller attach pawn
+			//	this->SetPawn(MyPawn);
+			//	// attach controller
+			//	MyPawn->PossessedBy(this);
+			//	// Modify MovementComp's MovementMode
+			//	((ATopDownCharacter*)MyPawn)->Restart();
+			//}
+			UNavigationSystem* const NavSys = GetWorld()->GetNavigationSystem();
+			float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
+
+			// We need to issue move command only if far enough in order for walk animation to play correctly
+			if (NavSys && (Distance > 120.0f))
+			{
+				if (g_switch == 0) {
+					if (MyPawn->GetController() != (AController*)this) {
+						MyPawn->PlayAI->Possess(MyPawn);
+						MyPawn->PossessedBy(MyPawn->PlayAI);
+						NavSys->SimpleMoveToLocation(MyPawn->GetController(), DestLocation);
+					}
+					else {
+						NavSys->SimpleMoveToLocation(this, DestLocation);
+					}
+				}
+				else
+					NavSys->SimpleMoveToLocation(this, DestLocation);
+			}
 		}
 	}
+	//APawn* const MyPawn = GetPawn();
+	//if (MyPawn)
+	//{
+	//	UNavigationSystem* const NavSys = GetWorld()->GetNavigationSystem();
+	//	float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
+
+	//	// We need to issue move command only if far enough in order for walk animation to play correctly
+	//	if (NavSys && (Distance > 120.0f))
+	//	{
+	//		NavSys->SimpleMoveToLocation(this, DestLocation);
+	//	}
+	//}
 }
 
 void ATopDownPlayerController::OnSetDestinationPressed()

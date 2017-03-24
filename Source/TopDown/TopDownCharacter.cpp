@@ -62,9 +62,12 @@ ATopDownCharacter::ATopDownCharacter()
 	//FVector newLocation = FVector(-180.000000, -350.000000, 171.000000);
 	//AMyActor_Spawner* spawner = GWorld->SpawnActor<AMyActor_Spawner>(AMyActor_Spawner::StaticClass(), newLocation, FRotator::ZeroRotator);
 
+	auto Con = GetController();
 	// create Aicontroller
 	if (GetWorld()) {
 		PlayAI = GetWorld()->SpawnActor<AAIController>(AAIController::StaticClass(), GetActorLocation(), GetActorRotation());
+		//PlayAI->Possess(this);
+		//this->PossessedBy(PlayAI);
 	}
 }
 
