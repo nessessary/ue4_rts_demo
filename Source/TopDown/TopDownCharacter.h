@@ -24,7 +24,7 @@ public:
 
 	void Select(bool is_selected);
 	AAIController* PlayAI;
-
+	bool IsMouseSelected() const;
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -41,5 +41,6 @@ private:
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* SelectedBound;
 
+	bool is_mouse_selected;
 };
 

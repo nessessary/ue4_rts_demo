@@ -115,9 +115,16 @@ void ATopDownCharacter::Select(bool is_selected)
 		FRotator CursorR = pos.Rotation();
 		SelectedBound->SetWorldLocation(pos);
 		//SelectedBound->SetWorldRotation(CursorR);
+		is_mouse_selected = true;
 	}
 	else
 	{
 		SelectedBound->SetHiddenInGame(true);
+		is_mouse_selected = false;
 	}
+}
+
+bool ATopDownCharacter::IsMouseSelected() const
+{
+	return is_mouse_selected;
 }

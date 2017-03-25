@@ -74,22 +74,25 @@ void ATopDownPlayerController::PlayerTick(float DeltaTime)
 		if (GetWorld()) {
 			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATopDownCharacter::StaticClass(), list);
 		}
-		// 鼠标释放事件
-		// 判断角色点在选择矩形内
-		ATopDownCharacter* MyPawn = Cast<ATopDownCharacter>(GetPawn());
-		if (MyPawn) {
-			FVector pos = MyPawn->GetActorLocation();
-			FVector2D pos1(pos.X, pos.Y);
-			ProjectWorldLocationToScreen(pos, pos1);
-			//FString str = FString::Printf(TEXT("%.2f, %.2f "), pos1.X, pos1.Y);
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, str);
-			if (PtInRect(pos1, pHud->_left, pHud->_right)) {
-				is_selected = true;
-				// 人物选择状态
-				// ...
-				MyPawn->Select(is_selected);
+		for (int32 i = 0; i < list.Num(); i++) {
+			// 鼠标释放事件
+			// 判断角色点在选择矩形内
+			ATopDownCharacter* MyPawn = Cast<ATopDownCharacter>(list[i]);
+			if (MyPawn) {
+				FVector pos = MyPawn->GetActorLocation();
+				FVector2D pos1(pos.X, pos.Y);
+				ProjectWorldLocationToScreen(pos, pos1);
+				//FString str = FString::Printf(TEXT("%.2f, %.2f "), pos1.X, pos1.Y);
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, str);
+				if (PtInRect(pos1, pHud->_left, pHud->_right)) {
+					is_selected = true;
+					// 人物选择状态
+					// ...
+					MyPawn->Select(is_selected);
+				}
 			}
 		}
+
 		pHud->_left = pHud->_right = FVector2D(0,0);
 	}
 	bPreMouseState = bMoveToMouseCursor;
@@ -167,7 +170,7 @@ void ATopDownPlayerController::SetNewMoveDestination(const FVector DestLocation)
 	//if(list.Num()>1)
 	{
 		ATopDownCharacter* const MyPawn = (ATopDownCharacter* )list[i];
-		if (MyPawn )
+		if (MyPawn && MyPawn->IsMouseSelected())
 		{
 			//MyPawn->UnPossessed();
 			////if (g_changePawn == 1) 
@@ -185,18 +188,15 @@ void ATopDownPlayerController::SetNewMoveDestination(const FVector DestLocation)
 			// We need to issue move command only if far enough in order for walk animation to play correctly
 			if (NavSys && (Distance > 120.0f))
 			{
-				if (g_switch == 0) {
-					if (MyPawn->GetController() != (AController*)this) {
-						MyPawn->PlayAI->Possess(MyPawn);
-						MyPawn->PossessedBy(MyPawn->PlayAI);
-						NavSys->SimpleMoveToLocation(MyPawn->GetController(), DestLocation);
-					}
-					else {
-						NavSys->SimpleMoveToLocation(this, DestLocation);
-					}
+				if (MyPawn->GetController() != (AController*)this) {
+					MyPawn->PlayAI->Possess(MyPawn);
+					MyPawn->PossessedBy(MyPawn->PlayAI);
+					NavSys->SimpleMoveToLocation(MyPawn->GetController(), DestLocation);
 				}
-				else
+				else {
 					NavSys->SimpleMoveToLocation(this, DestLocation);
+				}
+
 			}
 		}
 	}
