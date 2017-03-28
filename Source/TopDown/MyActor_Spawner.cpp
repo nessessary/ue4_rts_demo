@@ -35,8 +35,8 @@ void AMyActor_Spawner::BeginPlay()
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, str);
 
 	// 创建一个定时器
-	FTimerHandle SpawnTimer;
-	GetWorldTimerManager().SetTimer(SpawnTimer, this, &AMyActor_Spawner::SpawnSingleZombie, 2, true);
+	//FTimerHandle SpawnTimer;
+	//GetWorldTimerManager().SetTimer(SpawnTimer, this, &AMyActor_Spawner::SpawnSingleZombie, 2, true);
 }
 
 // Called every frame
@@ -70,8 +70,6 @@ void AMyActor_Spawner::SpawnSingleZombie()
 		ATopDownCharacter* pCharacter = GetWorld()->SpawnActor<ATopDownCharacter>(p, NewLocation, FRotator::ZeroRotator);
 		Zombie_num++;
 	}
-
-
 }
 
 void AMyActor_Spawner::Init()

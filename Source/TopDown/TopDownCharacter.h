@@ -25,6 +25,9 @@ public:
 	void Select(bool is_selected);
 	AAIController* PlayAI;
 	bool IsMouseSelected() const;
+
+
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

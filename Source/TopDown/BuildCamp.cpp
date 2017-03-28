@@ -2,7 +2,7 @@
 
 #include "TopDown.h"
 #include "BuildCamp.h"
-
+#include "TopDownCharacter.h"
 
 // Sets default values
 ABuildCamp::ABuildCamp()
@@ -25,6 +25,9 @@ void ABuildCamp::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// 创建一个定时器
+	FTimerHandle SpawnTimer;
+	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ABuildCamp::SpawnSingleZombie, 2, true);
 }
 
 // Called every frame
@@ -32,5 +35,18 @@ void ABuildCamp::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+}
+
+void ABuildCamp::SpawnSingleZombie()
+{
+	FVector NewLocation = GetActorLocation() + FVector(50, 0.f, 1.f);
+	UClass* p = LoadClass<ATopDownCharacter>(NULL, TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter.TopDownCharacter_C"));
+	if (p && Zombie_num_ < 3) {
+		ATopDownCharacter* pCharacter = GetWorld()->SpawnActor<ATopDownCharacter>(p, NewLocation, FRotator::ZeroRotator);
+		pCharacter->PlayAI->Possess(pCharacter);
+		pCharacter->PossessedBy(pCharacter->PlayAI);
+		pCharacter->PlayAI->MoveTo(NewLocation + FVector(400, 10, 0));
+		Zombie_num_++;
+	}
 }
 
