@@ -2,10 +2,11 @@
 #pragma once
 #include "GameFramework/Character.h"
 #include "AIController.h"
+#include "BaseDelegate.h"
 #include "TopDownCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class ATopDownCharacter : public ACharacter
+class ATopDownCharacter : public ACharacter, public IBaseDelegate
 {
 	GENERATED_BODY()
 

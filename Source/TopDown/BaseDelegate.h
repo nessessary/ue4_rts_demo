@@ -1,13 +1,34 @@
-#ifndef _BASEDELEGATE_H_
-#define _BASEDELEGATE_H_
+// Fill out your copyright notice in the Description page of Project Settings.
 
-class BaseDelegate {
-public:
-	BaseDelegate(void);
-	~BaseDelegate(void);
+#pragma once
+
+#include "BaseDelegate.generated.h"
+
+// This class does not need to be modified.
+UINTERFACE(MinimalAPI)
+class UBaseDelegate : public UInterface
+{
+	GENERATED_UINTERFACE_BODY()
 };
 
-// UCLASS can't use interface
+/**
+ * 
+ */
+class TOPDOWN_API IBaseDelegate
+{
+	GENERATED_IINTERFACE_BODY()
+	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+public:
+	//virtual void MySelect() = 0;
+	virtual void* GetEmbed() { return embed_; }
+	virtual void SetEmeded(void* p) { embed_ = p; }
+	void* embed_;
+
+};
+
+class Embed {
+
+};
 namespace RTS {
 	// select , unselect, move, attack
 	class IObject {
@@ -28,4 +49,3 @@ namespace RTS {
 		virtual void Spawn() = 0;
 	};
 };
-#endif	// _BASEDELEGATE_H_

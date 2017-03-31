@@ -1,12 +1,13 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
 #include "TopDown.h"
-#include "BaseDelegate.h" 
+#include "BaseDelegate.h"
 
-BaseDelegate::BaseDelegate(void) {
+
+// This function does not need to be modified.
+UBaseDelegate::UBaseDelegate(const class FObjectInitializer& ObjectInitializer)
+: Super(ObjectInitializer)
+{
 }
 
-BaseDelegate::~BaseDelegate(void) {
-}
-
-class MyTest : public RTS::IBuild, public RTS::IObject {
-
-};
+// Add default functionality here for any IBaseDelegate functions that are not pure virtual.
