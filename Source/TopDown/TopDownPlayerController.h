@@ -1,6 +1,7 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/PlayerController.h"
+#include "SStrategyMiniMapWidget.h"
 #include "CustomHUD.h"
 #include "TopDownPlayerController.generated.h"
 
@@ -15,6 +16,8 @@ public:
 
 private:
 	FVector2D GetCursor();
+	TSharedPtr<SStrategyMiniMapWidget> MiniMapWidget;
+
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;

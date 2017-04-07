@@ -53,10 +53,10 @@ void ATopDownPlayerController::BeginPlay()
 				.Padding(FMargin(10, 10))
 				.WidthOverride_Lambda([]() {return FOptionalSize(200.f); })
 				.HeightOverride_Lambda([]() {return FOptionalSize(200.f); })
-				//[
-				//	//SAssignNew(MiniMapWidget, SStrategyMiniMapWidget)
-				//	//.OwnerHUD(OwnerHUD)
-				//]
+				[
+					SAssignNew(MiniMapWidget, SStrategyMiniMapWidget)
+					//.OwnerHUD(OwnerHUD)
+				]
 			]
 		]
 	];
