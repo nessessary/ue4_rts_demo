@@ -11,6 +11,7 @@ class ATopDownPlayerController : public APlayerController
 
 public:
 	ATopDownPlayerController();
+	virtual void BeginPlay() override;
 
 private:
 	FVector2D GetCursor();
