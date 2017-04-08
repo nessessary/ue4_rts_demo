@@ -6,11 +6,12 @@
 #include "TopDownCharacter.h"
 #include "CustomHUD.h"
 #include "MyActor_Spawner.h"
+#include "MyGameStateBase.h"
 
 ATopDownGameMode::ATopDownGameMode()
 {
 	HUDClass = ACustomHUD::StaticClass();
-
+	GameStateClass = AMyGameStateBase::StaticClass();
 	// use our custom PlayerController class
 	PlayerControllerClass = ATopDownPlayerController::StaticClass();
 	
@@ -34,6 +35,12 @@ ATopDownGameMode::ATopDownGameMode()
 		}
 		
 	}
+}
+
+void ATopDownGameMode::InitGameState()
+{
+	Super::InitGameState();
+
 }
 
 void ATopDownGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)

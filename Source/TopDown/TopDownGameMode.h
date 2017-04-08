@@ -12,7 +12,9 @@ class ATopDownGameMode : public AGameModeBase
 public:
 	ATopDownGameMode();
 
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
+	virtual void InitGameState() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 	AMyActor_Spawner* _spawner;
 };
 

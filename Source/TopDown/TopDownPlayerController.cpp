@@ -13,6 +13,8 @@
 #include "SlateExtras.h"
 
 #include <algorithm>
+#include "MyGameStateBase.h"
+#include "StrategyMiniMapCapture.h"
 
 ATopDownPlayerController::ATopDownPlayerController()
 {
@@ -32,13 +34,7 @@ void ATopDownPlayerController::BeginPlay()
 	.HAlign(HAlign_Fill)
 	.VAlign(VAlign_Fill)
 	[
-		//SNew(SButton)
-		//.Content()
-		//[
-		//	SNew(STextBlock)
-		//	.Text(FText::FromString(TEXT("Test button")))
-		//]
-		//
+
 		SNew(SOverlay)
 		+ SOverlay::Slot()
 		.VAlign(VAlign_Bottom)
@@ -61,6 +57,11 @@ void ATopDownPlayerController::BeginPlay()
 		]
 	];
 	GEngine->GameViewport->AddViewportWidgetForPlayer(GetLocalPlayer(), widget, 1);
+
+	// Init Capture
+	AMyGameStateBase* game_state = GetWorld()->GetGameState<AMyGameStateBase>();
+	game_state->MiniMapCamera = GetWorld()->SpawnActor<AStrategyMiniMapCapture>(
+		AStrategyMiniMapCapture::StaticClass());
 }
 
 FVector2D ATopDownPlayerController::GetCursor()
