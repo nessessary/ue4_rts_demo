@@ -45,6 +45,9 @@ protected:
 	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
 
+	void MouseLeftMinimap();
+	void MousePressedOverMinimap();
+	void MouseReleasedOverMinimap();
 };
 
 

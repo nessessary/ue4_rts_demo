@@ -242,3 +242,18 @@ void ATopDownPlayerController::OnSetDestinationReleased()
 	bMoveToMouseCursor = false;
 }
 
+void ATopDownPlayerController::MouseLeftMinimap()
+{
+
+}
+
+void ATopDownPlayerController::MousePressedOverMinimap()
+{
+
+}
+
+void ATopDownPlayerController::MouseReleasedOverMinimap()
+{
+
+}
+
