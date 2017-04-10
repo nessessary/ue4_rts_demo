@@ -24,7 +24,8 @@ ATopDownPlayerController::ATopDownPlayerController()
 void ATopDownPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	FVector pos2 = FVector(-100, 0, 1000);
+	SetCameraTarget(pos2);
 
 	// Init Capture
 	AMyGameStateBase* game_state = GetWorld()->GetGameState<AMyGameStateBase>();
@@ -255,5 +256,29 @@ void ATopDownPlayerController::MousePressedOverMinimap()
 void ATopDownPlayerController::MouseReleasedOverMinimap()
 {
 
+}
+
+AStrategySpectatorPawn* ATopDownPlayerController::GetStrategySpectatorPawn() const
+{
+	return Cast<AStrategySpectatorPawn>(GetSpectatorPawn());
+}
+
+UStrategyCameraComponent* ATopDownPlayerController::GetCameraComponent() const
+{
+	UStrategyCameraComponent* CameraComponent = NULL;
+	if (GetStrategySpectatorPawn() != NULL)
+	{
+		CameraComponent = GetStrategySpectatorPawn()->GetStrategyCameraComponent();
+	}
+	return CameraComponent;
+
+}
+
+void ATopDownPlayerController::SetCameraTarget(const FVector& CameraTarget)
+{
+	if (GetCameraComponent() != NULL)
+	{
+		GetCameraComponent()->SetCameraTarget(CameraTarget);
+	}
 }
 

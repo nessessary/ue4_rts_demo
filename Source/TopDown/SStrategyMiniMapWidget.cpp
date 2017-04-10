@@ -49,8 +49,8 @@ FReply SStrategyMiniMapWidget::OnMouseButtonDown(const FGeometry& MyGeometry, co
 
 	FVector CameraTarget = FVector(OrgCenter.X - Extent.X,	OrgCenter.Y - Extent.Y,	OrgCenter.Z + Extent.Z);
 	
-	//StrategyPlayerController->MousePressedOverMinimap(); 
-	//StrategyPlayerController->SetCameraTarget(CameraTarget);
+	StrategyPlayerController->MousePressedOverMinimap(); 
+	StrategyPlayerController->SetCameraTarget(CameraTarget);
 
 	bIsMouseButtonDown = true;
 	return FReply::Handled();

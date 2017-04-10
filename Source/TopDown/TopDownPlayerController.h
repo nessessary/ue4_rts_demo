@@ -1,7 +1,8 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/PlayerController.h"
-
+#include "StrategySpectatorPawn.h"
+#include "StrategyCameraComponent.h"
 #include "CustomHUD.h"
 #include "TopDownPlayerController.generated.h"
 
@@ -13,6 +14,13 @@ class ATopDownPlayerController : public APlayerController
 public:
 	ATopDownPlayerController();
 	virtual void BeginPlay() override;
+
+	void MouseLeftMinimap();
+	void MousePressedOverMinimap();
+	void MouseReleasedOverMinimap();
+	AStrategySpectatorPawn* GetStrategySpectatorPawn() const;
+	UStrategyCameraComponent* GetCameraComponent() const;
+	void SetCameraTarget(const FVector& CameraTarget);
 
 private:
 	FVector2D GetCursor();
@@ -45,9 +53,7 @@ protected:
 	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
 
-	void MouseLeftMinimap();
-	void MousePressedOverMinimap();
-	void MouseReleasedOverMinimap();
+
 };
 
 

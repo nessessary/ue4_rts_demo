@@ -11,6 +11,9 @@
 ATopDownGameMode::ATopDownGameMode()
 {
 	HUDClass = ACustomHUD::StaticClass();
+	//SpectatorClass = AStrategySpectatorPawn::StaticClass();
+	//DefaultPawnClass = AStrategySpectatorPawn::StaticClass();
+
 	GameStateClass = AMyGameStateBase::StaticClass();
 	// use our custom PlayerController class
 	PlayerControllerClass = ATopDownPlayerController::StaticClass();
@@ -35,6 +38,27 @@ ATopDownGameMode::ATopDownGameMode()
 		}
 		
 	}
+}
+
+void ATopDownGameMode::RestartPlayer(AController* NewPlayer)
+{
+	Super::RestartPlayer(NewPlayer);
+	//AActor* const StartSpot = FindPlayerStart(NewPlayer);
+	//if (StartSpot != nullptr)
+	//{
+	//	// initialize and start it up
+	//	InitStartSpot(StartSpot, NewPlayer);
+
+	//	ATopDownPlayerController* const NewPC = Cast<ATopDownPlayerController>(NewPlayer);
+	//	if (NewPC != nullptr)
+	//	{
+	//		NewPC->SetInitialLocationAndRotation(StartSpot->GetActorLocation(), StartSpot->GetActorRotation());
+	//	}
+	//}
+	//else
+	//{
+	//	//UE_LOG(LogGame, Warning, TEXT("Player start not found, failed to restart player"));
+	//}
 }
 
 void ATopDownGameMode::InitGameState()
