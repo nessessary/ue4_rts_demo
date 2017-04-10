@@ -28,8 +28,9 @@ void ATopDownPlayerController::BeginPlay()
 
 	// Init Capture
 	AMyGameStateBase* game_state = GetWorld()->GetGameState<AMyGameStateBase>();
+	FVector pos = FVector(0, 100, 2000);
 	game_state->MiniMapCamera = GetWorld()->SpawnActor<AStrategyMiniMapCapture>(
-		AStrategyMiniMapCapture::StaticClass());
+		AStrategyMiniMapCapture::StaticClass(), pos, FRotator::ZeroRotator);
 }
 
 FVector2D ATopDownPlayerController::GetCursor()

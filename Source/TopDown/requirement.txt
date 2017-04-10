@@ -1,5 +1,6 @@
 -添加minimap， 观察者
 	1）放置一个SlateWidiget
+	2)放置缩略图, Capture相当于一个固定的camera
 
 1.创建一个兵营
 	1) 先简单的用一个box作为兵营， 后期找到资源网站， 再替换

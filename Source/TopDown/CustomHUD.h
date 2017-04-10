@@ -13,15 +13,14 @@ UCLASS()
 class ACustomHUD : public AHUD
 {
 	GENERATED_BODY()
-	
-	
-	
-	
 public:
 	virtual void DrawHUD() override;
 	void BuildWidget();
+	void DrawMiniMap();
 
 	TSharedPtr<SStrategyMiniMapWidget> MiniMapWidget;
+	float MiniMapMargin;
+	float UIScale;
 
 	FVector2D _left;
 	FVector2D _right;
