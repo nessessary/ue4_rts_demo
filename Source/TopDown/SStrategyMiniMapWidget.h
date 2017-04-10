@@ -4,8 +4,7 @@
 
 #include "SlateBasics.h"
 #include "SlateExtras.h"
-
-//class AStrategyHUD;
+class ACustomHUD;
 
 //class declare
 class SStrategyMiniMapWidget : public SCompoundWidget
@@ -14,7 +13,7 @@ public:
 	SLATE_BEGIN_ARGS(SStrategyMiniMapWidget)
 	{}
 
-	//SLATE_ARGUMENT(TWeakObjectPtr<AStrategyHUD>, OwnerHUD)
+	SLATE_ARGUMENT(TWeakObjectPtr<ACustomHUD>, OwnerHUD)
 
 	SLATE_END_ARGS()
 
@@ -42,5 +41,5 @@ private:
 	bool bIsMouseButtonDown;
 
 	/** Pointer to our parent HUD */
-	TWeakObjectPtr<class AStrategyHUD> OwnerHUD;
+	TWeakObjectPtr<class ACustomHUD> OwnerHUD;
 };

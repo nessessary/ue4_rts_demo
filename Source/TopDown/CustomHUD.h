@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/HUD.h"
+#include "SStrategyMiniMapWidget.h"
 #include "CustomHUD.generated.h"
 
 /**
@@ -18,6 +19,9 @@ class ACustomHUD : public AHUD
 	
 public:
 	virtual void DrawHUD() override;
+	void BuildWidget();
+
+	TSharedPtr<SStrategyMiniMapWidget> MiniMapWidget;
 
 	FVector2D _left;
 	FVector2D _right;

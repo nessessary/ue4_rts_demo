@@ -7,10 +7,6 @@
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "TopDownCharacter.h"
-#include "SlateBasics.h"
-#include "SButton.h"
-#include "STextBlock.h"
-#include "SlateExtras.h"
 
 #include <algorithm>
 #include "MyGameStateBase.h"
@@ -28,35 +24,7 @@ ATopDownPlayerController::ATopDownPlayerController()
 void ATopDownPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	TSharedRef<SVerticalBox> widget = SNew(SVerticalBox)
-	+ SVerticalBox::Slot()
 
-	.HAlign(HAlign_Fill)
-	.VAlign(VAlign_Fill)
-	[
-
-		SNew(SOverlay)
-		+ SOverlay::Slot()
-		.VAlign(VAlign_Bottom)
-		.HAlign(HAlign_Left)
-		.Padding(FMargin(100, 0, 0, 100))
-		[
-			SNew(SBorder)
-			//.BorderImage(&HUDStyle->MinimapFrameBrush)
-			.Padding(FMargin(0))
-			[
-				SNew(SBox)
-				.Padding(FMargin(10, 10))
-				.WidthOverride_Lambda([]() {return FOptionalSize(200.f); })
-				.HeightOverride_Lambda([]() {return FOptionalSize(200.f); })
-				[
-					SAssignNew(MiniMapWidget, SStrategyMiniMapWidget)
-					//.OwnerHUD(OwnerHUD)
-				]
-			]
-		]
-	];
-	GEngine->GameViewport->AddViewportWidgetForPlayer(GetLocalPlayer(), widget, 1);
 
 	// Init Capture
 	AMyGameStateBase* game_state = GetWorld()->GetGameState<AMyGameStateBase>();

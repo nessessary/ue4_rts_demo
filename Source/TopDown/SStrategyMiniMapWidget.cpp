@@ -9,7 +9,7 @@ void SStrategyMiniMapWidget::Construct(const FArguments& InArgs)
 	ChildSlot
 	.VAlign(VAlign_Fill)
 	.HAlign(HAlign_Fill);
-	//OwnerHUD = InArgs._OwnerHUD;
+	OwnerHUD = InArgs._OwnerHUD;
 	bIsMouseButtonDown = false;
 }
 
@@ -99,25 +99,25 @@ int32 SStrategyMiniMapWidget::OnPaint( const FPaintArgs& Args, const FGeometry& 
 		//AStrategyHUD* const HUD = PC ? Cast<AStrategyHUD>(PC->MyHUD) : NULL;
 		//if (MyGameState && MyGameState->MiniMapCamera.IsValid() && HUD)
 		//{
-		//	TArray<FVector2D> LinePoints;
-		//	const float HalfMiniMapWidth = (MyGameState->MiniMapCamera->MiniMapWidth -  HUD->MiniMapMargin) / 2.0f;
-		//	const float HalfMiniMapHeight = (MyGameState->MiniMapCamera->MiniMapHeight - HUD->MiniMapMargin) / 2.0f;
-		//	const FVector2D MiniMapCenter(HalfMiniMapWidth,HalfMiniMapHeight);
+			TArray<FVector2D> LinePoints;
+			const float HalfMiniMapWidth = 50;
+			const float HalfMiniMapHeight = 50;
+			const FVector2D MiniMapCenter(HalfMiniMapWidth,HalfMiniMapHeight);
 
-		//	for (int32 i=0; i < 5; i++)
-		//	{
-		//		LinePoints.Add( MiniMapCenter + HUD->MiniMapPoints[i % 4] * MiniMapCenter );
-		//	}
+			for (int32 i=0; i < 5; i++)
+			{
+				LinePoints.Add( MiniMapCenter + i * MiniMapCenter );
+			}
 
-		//	FSlateDrawElement::MakeLines( 
-		//		OutDrawElements,
-		//		LayerId,
-		//		AllottedGeometry.ToPaintGeometry(),
-		//		LinePoints,
-		//		MyClippingRect,
-		//		bParentEnabled ? ESlateDrawEffect::None : ESlateDrawEffect::DisabledEffect,
-		//		FColor::White,
-		//		false);
+			FSlateDrawElement::MakeLines( 
+				OutDrawElements,
+				LayerId,
+				AllottedGeometry.ToPaintGeometry(),
+				LinePoints,
+				MyClippingRect,
+				bParentEnabled ? ESlateDrawEffect::None : ESlateDrawEffect::DisabledEffect,
+				FColor::White,
+				false);
 		//}
 	}
 	return LayerId;
