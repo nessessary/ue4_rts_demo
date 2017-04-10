@@ -20,6 +20,7 @@ public:
 
 	TSharedPtr<SStrategyMiniMapWidget> MiniMapWidget;
 	float MiniMapMargin;
+	FVector2D MiniMapPoints[4];
 	float UIScale;
 
 	FVector2D _left;

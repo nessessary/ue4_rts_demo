@@ -2,7 +2,10 @@
 
 #include "TopDown.h"
 #include "SStrategyMiniMapWidget.h"
-
+#include "CustomHUD.h"
+#include "TopDownPlayerController.h"
+#include "MyGameStateBase.h"
+#include "Engine/Engine.h"
 
 void SStrategyMiniMapWidget::Construct(const FArguments& InArgs)
 {
@@ -19,48 +22,48 @@ FReply SStrategyMiniMapWidget::OnMouseButtonDown(const FGeometry& MyGeometry, co
 	{		
 		return FReply::Unhandled();
 	}
-	//AStrategyPlayerController* const StrategyPlayerController = Cast<AStrategyPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
-	//if( StrategyPlayerController == nullptr )
-	//{
-	//	return FReply::Unhandled();
-	//}
-	//AStrategyGameState const* const MyGameState = StrategyPlayerController->GetWorld()->GetGameState<AStrategyGameState>();
-	//AStrategyHUD* HUD = Cast<AStrategyHUD>(StrategyPlayerController->MyHUD);
-	//if( ( MyGameState == nullptr) || ( HUD == nullptr ) )
-	//{
-	//	return FReply::Unhandled();
-	//}
+	ATopDownPlayerController* const StrategyPlayerController = Cast<ATopDownPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
+	if( StrategyPlayerController == nullptr )
+	{
+		return FReply::Unhandled();
+	}
+	AMyGameStateBase const* const MyGameState = StrategyPlayerController->GetWorld()->GetGameState<AMyGameStateBase>();
+	ACustomHUD* HUD = Cast<ACustomHUD>(StrategyPlayerController->MyHUD);
+	if( ( MyGameState == nullptr) || ( HUD == nullptr ) )
+	{
+		return FReply::Unhandled();
+	}
 
-	//const float UIScale = HUD->UIScale;
-	//const float HalfMiniMapWidth = ((MyGameState->MiniMapCamera->MiniMapWidth - HUD->MiniMapMargin) * UIScale) / 2.0f;
-	//const float HalfMiniMapHeight = ((MyGameState->MiniMapCamera->MiniMapHeight - HUD->MiniMapMargin) * UIScale) / 2.0f;
-	// 
-	//FVector2D LocalCoords(MouseEvent.GetScreenSpacePosition() - MyGeometry.AbsolutePosition);
-	//FVector2D NormalizedMinimapCoords(((LocalCoords.X - HalfMiniMapWidth) / HalfMiniMapWidth), ((LocalCoords.Y - HalfMiniMapHeight) / HalfMiniMapHeight));
+	const float UIScale = HUD->UIScale;
+	const float HalfMiniMapWidth = ((MyGameState->MiniMapCamera->MiniMapWidth - HUD->MiniMapMargin) * UIScale) / 2.0f;
+	const float HalfMiniMapHeight = ((MyGameState->MiniMapCamera->MiniMapHeight - HUD->MiniMapMargin) * UIScale) / 2.0f;
+	 
+	FVector2D LocalCoords(MouseEvent.GetScreenSpacePosition() - MyGeometry.AbsolutePosition);
+	FVector2D NormalizedMinimapCoords(((LocalCoords.X - HalfMiniMapWidth) / HalfMiniMapWidth), ((LocalCoords.Y - HalfMiniMapHeight) / HalfMiniMapHeight));
 
-	//// Use a fixed yaw of 270.0f here instead of calculating (270.0f + MyGameState->MiniMapCamera->GetRootComponent()->GetComponentRotation().Roll).
-	//const FRotationMatrix RotationMatrix(FRotator(0.0f, 270.0f, 0.0f));
-	//const FVector OrgCenter = MyGameState->WorldBounds.GetCenter();
-	//const FVector OrgExt = MyGameState->WorldBounds.GetExtent();
-	//const FVector Extent = RotationMatrix.TransformPosition(FVector(NormalizedMinimapCoords,0)) * OrgExt;
+	// Use a fixed yaw of 270.0f here instead of calculating (270.0f + MyGameState->MiniMapCamera->GetRootComponent()->GetComponentRotation().Roll).
+	const FRotationMatrix RotationMatrix(FRotator(0.0f, 270.0f, 0.0f));
+	const FVector OrgCenter = MyGameState->WorldBounds.GetCenter();
+	const FVector OrgExt = MyGameState->WorldBounds.GetExtent();
+	const FVector Extent = RotationMatrix.TransformPosition(FVector(NormalizedMinimapCoords,0)) * OrgExt;
 
-	//FVector CameraTarget = FVector(OrgCenter.X - Extent.X,	OrgCenter.Y - Extent.Y,	OrgCenter.Z + Extent.Z);
-	//
+	FVector CameraTarget = FVector(OrgCenter.X - Extent.X,	OrgCenter.Y - Extent.Y,	OrgCenter.Z + Extent.Z);
+	
 	//StrategyPlayerController->MousePressedOverMinimap(); 
 	//StrategyPlayerController->SetCameraTarget(CameraTarget);
 
-	//bIsMouseButtonDown = true;
+	bIsMouseButtonDown = true;
 	return FReply::Handled();
 }
 
 void SStrategyMiniMapWidget::OnMouseLeave(const FPointerEvent& MouseEvent)
 {
 	bIsMouseButtonDown = false;
-	//AStrategyPlayerController* const PlayerController = Cast<AStrategyPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
-	//if (PlayerController != NULL)
-	//{
-	//	PlayerController->MouseLeftMinimap();
-	//}
+	ATopDownPlayerController* const PlayerController = Cast<ATopDownPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
+	if (PlayerController != NULL)
+	{
+		//PlayerController->MouseLeftMinimap();
+	}
 }
 
 FReply SStrategyMiniMapWidget::OnMouseButtonUp(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
@@ -70,11 +73,11 @@ FReply SStrategyMiniMapWidget::OnMouseButtonUp(const FGeometry& MyGeometry, cons
 	if (bIsMouseButtonDown == true )
 	{
 		bIsMouseButtonDown = false;
-		//AStrategyPlayerController* const PlayerController = Cast<AStrategyPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
-		//if (PlayerController != NULL)
-		//{
-		//	PlayerController->MouseReleasedOverMinimap();
-		//}
+		ATopDownPlayerController* const PlayerController = Cast<ATopDownPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
+		if (PlayerController != NULL)
+		{
+			//PlayerController->MouseReleasedOverMinimap();
+		}
 		Reply = FReply::Handled();
 	}
 	return Reply;
@@ -94,19 +97,19 @@ int32 SStrategyMiniMapWidget::OnPaint( const FPaintArgs& Args, const FGeometry& 
 	SCompoundWidget::OnPaint( Args, AllottedGeometry, MyClippingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled );
 	if( OwnerHUD.IsValid() == true )
 	{
-		//AStrategyPlayerController* const PC = Cast<AStrategyPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
-		//AStrategyGameState const* const MyGameState = PC && PC->GetWorld() ? PC->GetWorld()->GetGameState<AStrategyGameState>() : NULL;
-		//AStrategyHUD* const HUD = PC ? Cast<AStrategyHUD>(PC->MyHUD) : NULL;
-		//if (MyGameState && MyGameState->MiniMapCamera.IsValid() && HUD)
-		//{
+		ATopDownPlayerController* const PC = Cast<ATopDownPlayerController>(GEngine->GetFirstLocalPlayerController(OwnerHUD.Get()->GetWorld()));
+		AMyGameStateBase const* const MyGameState = PC && PC->GetWorld() ? PC->GetWorld()->GetGameState<AMyGameStateBase>() : NULL;
+		ACustomHUD* const HUD = PC ? Cast<ACustomHUD>(PC->MyHUD) : NULL;
+		if (MyGameState && MyGameState->MiniMapCamera.IsValid() && HUD)
+		{
 			TArray<FVector2D> LinePoints;
-			const float HalfMiniMapWidth = 50;
-			const float HalfMiniMapHeight = 50;
+			const float HalfMiniMapWidth = (MyGameState->MiniMapCamera->MiniMapWidth - HUD->MiniMapMargin) / 2.0f;
+			const float HalfMiniMapHeight = (MyGameState->MiniMapCamera->MiniMapHeight - HUD->MiniMapMargin) / 2.0f;
 			const FVector2D MiniMapCenter(HalfMiniMapWidth,HalfMiniMapHeight);
 
 			for (int32 i=0; i < 5; i++)
 			{
-				LinePoints.Add( MiniMapCenter + i * MiniMapCenter );
+				LinePoints.Add( MiniMapCenter + HUD->MiniMapPoints[i % 4] * MiniMapCenter );
 			}
 
 			FSlateDrawElement::MakeLines( 
@@ -118,7 +121,7 @@ int32 SStrategyMiniMapWidget::OnPaint( const FPaintArgs& Args, const FGeometry& 
 				bParentEnabled ? ESlateDrawEffect::None : ESlateDrawEffect::DisabledEffect,
 				FColor::White,
 				false);
-		//}
+		}
 	}
 	return LayerId;
 }

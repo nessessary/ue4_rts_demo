@@ -3,7 +3,7 @@
 #include "TopDown.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "StrategyMiniMapCapture.h"
-
+#include "MyGameStateBase.h"
 
 AStrategyMiniMapCapture::AStrategyMiniMapCapture (const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -46,21 +46,21 @@ void AStrategyMiniMapCapture::BeginPlay()
 
 void AStrategyMiniMapCapture::UpdateWorldBounds()
 {
-	//AStrategyGameState* const MyGameState = GetWorld()->GetGameState<AStrategyGameState>();
-	//if( MyGameState != nullptr )	
-	//{
-	//	TArray<FVector> Points;
-	//	FVector const CamLocation = RootComponent->GetComponentLocation();
-	//	float DistanceFromGround = CamLocation.Z - GroundLevel;
-	//	float Alpha = FMath::DegreesToRadians(GetCaptureComponent2D()->FOVAngle / 2);
-	//	float MaxVisibleDistance = (DistanceFromGround / FMath::Cos(Alpha)) * FMath::Sin(Alpha);
+	AMyGameStateBase* const MyGameState = GetWorld()->GetGameState<AMyGameStateBase>();
+	if( MyGameState != nullptr )	
+	{
+		TArray<FVector> Points;
+		FVector const CamLocation = RootComponent->GetComponentLocation();
+		float DistanceFromGround = CamLocation.Z - GroundLevel;
+		float Alpha = FMath::DegreesToRadians(GetCaptureComponent2D()->FOVAngle / 2);
+		float MaxVisibleDistance = (DistanceFromGround / FMath::Cos(Alpha)) * FMath::Sin(Alpha);
 
-	//	Points.Add(FVector(CamLocation.X+MaxVisibleDistance,CamLocation.Y+MaxVisibleDistance,GroundLevel));
-	//	Points.Add(FVector(CamLocation.X-MaxVisibleDistance,CamLocation.Y-MaxVisibleDistance,GroundLevel));
+		Points.Add(FVector(CamLocation.X+MaxVisibleDistance,CamLocation.Y+MaxVisibleDistance,GroundLevel));
+		Points.Add(FVector(CamLocation.X-MaxVisibleDistance,CamLocation.Y-MaxVisibleDistance,GroundLevel));
 
-	//	MyGameState->WorldBounds = FBox(Points);
-	//	GetCaptureComponent2D()->UpdateContent();
-	//}
+		MyGameState->WorldBounds = FBox(Points);
+		GetCaptureComponent2D()->UpdateContent();
+	}
 }
 
 void AStrategyMiniMapCapture::Tick(float DeltaSeconds)
