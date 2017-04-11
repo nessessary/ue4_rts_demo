@@ -10,19 +10,23 @@
 
 ATopDownGameMode::ATopDownGameMode()
 {
+	PlayerControllerClass = ATopDownPlayerController::StaticClass();
+
 	HUDClass = ACustomHUD::StaticClass();
-	//SpectatorClass = AStrategySpectatorPawn::StaticClass();
-	//DefaultPawnClass = AStrategySpectatorPawn::StaticClass();
+	//static ConstructorHelpers::FClassFinder<ASpectatorPawn> MySpectatorClass(TEXT("/Game/bluprint/MyStrategySpectatorPawn"));
+	//if (MySpectatorClass.Class != NULL)
+	//	SpectatorClass = MySpectatorClass.Class;
+	SpectatorClass = AStrategySpectatorPawn::StaticClass();
+	DefaultPawnClass = AStrategySpectatorPawn::StaticClass();
 
 	GameStateClass = AMyGameStateBase::StaticClass();
 	// use our custom PlayerController class
-	PlayerControllerClass = ATopDownPlayerController::StaticClass();
 	
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
+		//DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::ATopDownGameMode"));
@@ -40,26 +44,26 @@ ATopDownGameMode::ATopDownGameMode()
 	}
 }
 
-void ATopDownGameMode::RestartPlayer(AController* NewPlayer)
-{
-	Super::RestartPlayer(NewPlayer);
-	//AActor* const StartSpot = FindPlayerStart(NewPlayer);
-	//if (StartSpot != nullptr)
-	//{
-	//	// initialize and start it up
-	//	InitStartSpot(StartSpot, NewPlayer);
-
-	//	ATopDownPlayerController* const NewPC = Cast<ATopDownPlayerController>(NewPlayer);
-	//	if (NewPC != nullptr)
-	//	{
-	//		NewPC->SetInitialLocationAndRotation(StartSpot->GetActorLocation(), StartSpot->GetActorRotation());
-	//	}
-	//}
-	//else
-	//{
-	//	//UE_LOG(LogGame, Warning, TEXT("Player start not found, failed to restart player"));
-	//}
-}
+//void ATopDownGameMode::RestartPlayer(AController* NewPlayer)
+//{
+//	Super::RestartPlayer(NewPlayer);
+//	AActor* const StartSpot = FindPlayerStart(NewPlayer);
+//	if (StartSpot != nullptr)
+//	{
+//		// initialize and start it up
+//		InitStartSpot(StartSpot, NewPlayer);
+//
+//		ATopDownPlayerController* const NewPC = Cast<ATopDownPlayerController>(NewPlayer);
+//		if (NewPC != nullptr)
+//		{
+//			NewPC->SetInitialLocationAndRotation(StartSpot->GetActorLocation(), StartSpot->GetActorRotation());
+//		}
+//	}
+//	else
+//	{
+//		//UE_LOG(LogGame, Warning, TEXT("Player start not found, failed to restart player"));
+//	}
+//}
 
 void ATopDownGameMode::InitGameState()
 {

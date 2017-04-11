@@ -18,6 +18,7 @@ UStrategyCameraComponent::UStrategyCameraComponent(const FObjectInitializer& Obj
 	MaxZoomLevel = 1.0f;
 	MiniMapBoundsLimit = 0.8f;
 	StartSwipeCoords.Set(0.0f, 0.0f, 0.0f);
+	bShouldClampCamera = true;
 }
 
 void UStrategyCameraComponent::OnZoomIn()
@@ -279,6 +280,8 @@ void UStrategyCameraComponent::SetCameraTarget(const FVector& CameraTarget)
 	if( SpectatorPawn != NULL )
 	{
 		SpectatorPawn->SetActorLocation(CameraTarget, false);
+		FVector pos = FVector(100, 100, 1000);
+		
 	}	
 }
 

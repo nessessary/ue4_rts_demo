@@ -24,7 +24,11 @@ ATopDownPlayerController::ATopDownPlayerController()
 void ATopDownPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	FVector pos2 = FVector(-100, 0, 1000);
+	APawn* pawn = GetPawn();
+	this->ChangeState(NAME_Spectating);
+	//Possess(pawn);
+	//SetSpectatorPawn((ASpectatorPawn*)pawn);
+	FVector pos2 = FVector(100, 100, 1000);
 	SetCameraTarget(pos2);
 
 	// Init Capture
@@ -128,6 +132,38 @@ void ATopDownPlayerController::SetupInputComponent()
 	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATopDownPlayerController::MoveToTouchLocation);
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &ATopDownPlayerController::OnResetVR);
+}
+
+void ATopDownPlayerController::ProcessPlayerInput(const float DeltaTime, const bool bGamePaused)
+{
+	Super::ProcessPlayerInput(DeltaTime, bGamePaused);
+
+	if (1)
+	{
+		const ULocalPlayer* LocalPlayer = Cast<ULocalPlayer>(Player);
+		AStrategySpectatorPawn* StrategyPawn = GetStrategySpectatorPawn();
+		if ((StrategyPawn != NULL) && (LocalPlayer != NULL))
+		{
+			// Create the bounds for the minimap so we can add it as a 'no scroll' zone.
+			ACustomHUD* const HUD = Cast<ACustomHUD>(GetHUD());
+			AMyGameStateBase const* const MyGameState = GetWorld()->GetGameState<AMyGameStateBase>();
+			if ((MyGameState != NULL) && (MyGameState->MiniMapCamera.IsValid() == true))
+			{
+				if (LocalPlayer->ViewportClient != NULL)
+				{
+					const FIntPoint ViewportSize = LocalPlayer->ViewportClient->Viewport->GetSizeXY();
+					const uint32 ViewTop = FMath::TruncToInt(LocalPlayer->Origin.Y * ViewportSize.Y);
+					const uint32 ViewBottom = ViewTop + FMath::TruncToInt(LocalPlayer->Size.Y * ViewportSize.Y);
+
+					FVector TopLeft(HUD->MiniMapMargin, ViewBottom - HUD->MiniMapMargin - MyGameState->MiniMapCamera->MiniMapHeight, 0);
+					FVector BottomRight((int32)MyGameState->MiniMapCamera->MiniMapWidth, MyGameState->MiniMapCamera->MiniMapHeight, 0);
+					FBox MiniMapBounds(TopLeft, TopLeft + BottomRight);
+					StrategyPawn->GetStrategyCameraComponent()->AddNoScrollZone(MiniMapBounds);
+					StrategyPawn->GetStrategyCameraComponent()->UpdateCameraMovement(this);
+				}
+			}
+		}
+	}
 }
 
 void ATopDownPlayerController::OnResetVR()
@@ -245,17 +281,26 @@ void ATopDownPlayerController::OnSetDestinationReleased()
 
 void ATopDownPlayerController::MouseLeftMinimap()
 {
-
+	if (GetCameraComponent() != NULL)
+	{
+		GetCameraComponent()->EndSwipeNow();
+	}
 }
 
 void ATopDownPlayerController::MousePressedOverMinimap()
 {
-
+	if (GetCameraComponent() != NULL)
+	{
+		GetCameraComponent()->EndSwipeNow();
+	}
 }
 
 void ATopDownPlayerController::MouseReleasedOverMinimap()
 {
-
+	if (GetCameraComponent() != NULL)
+	{
+		GetCameraComponent()->EndSwipeNow();
+	}
 }
 
 AStrategySpectatorPawn* ATopDownPlayerController::GetStrategySpectatorPawn() const

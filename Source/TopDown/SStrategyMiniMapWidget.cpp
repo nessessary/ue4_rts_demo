@@ -48,6 +48,8 @@ FReply SStrategyMiniMapWidget::OnMouseButtonDown(const FGeometry& MyGeometry, co
 	const FVector Extent = RotationMatrix.TransformPosition(FVector(NormalizedMinimapCoords,0)) * OrgExt;
 
 	FVector CameraTarget = FVector(OrgCenter.X - Extent.X,	OrgCenter.Y - Extent.Y,	OrgCenter.Z + Extent.Z);
+	if (CameraTarget.Z < 100)
+		CameraTarget.Z = 1000;
 	
 	StrategyPlayerController->MousePressedOverMinimap(); 
 	StrategyPlayerController->SetCameraTarget(CameraTarget);

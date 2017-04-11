@@ -35,6 +35,7 @@ protected:
 	// Begin PlayerController interface
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual void SetupInputComponent() override;
+	virtual void ProcessPlayerInput(const float DeltaTime, const bool bGamePaused) override;
 	// End PlayerController interface
 
 	/** Resets HMD orientation in VR. */
