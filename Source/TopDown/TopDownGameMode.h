@@ -11,7 +11,7 @@ class ATopDownGameMode : public AGameModeBase
 
 public:
 	ATopDownGameMode();
-	//virtual void RestartPlayer(AController* NewPlayer) override;
+	virtual void RestartPlayer(AController* NewPlayer) override;
 	virtual void InitGameState() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 

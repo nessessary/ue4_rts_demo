@@ -29,6 +29,9 @@ class AStrategySpectatorPawn : public ASpectatorPawn
 private:
 	UPROPERTY(Category = CameraActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStrategyCameraComponent* StrategyCameraComponent;
+	UPROPERTY(EditAnywhere)
+	USpringArmComponent* OurCameraSpringArm;
+
 public:
 
 	/** Handles the mouse scrolling down. */

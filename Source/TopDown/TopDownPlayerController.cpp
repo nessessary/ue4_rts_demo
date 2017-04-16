@@ -25,7 +25,7 @@ void ATopDownPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	APawn* pawn = GetPawn();
-	this->ChangeState(NAME_Spectating);
+	//this->ChangeState(NAME_Spectating);
 	//Possess(pawn);
 	//SetSpectatorPawn((ASpectatorPawn*)pawn);
 	FVector pos2 = FVector(100, 100, 1000);
