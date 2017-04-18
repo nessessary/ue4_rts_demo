@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "MyGameStateBase.h"
 #include "StrategyMiniMapCapture.h"
+#include "UE4_TopDown_ZoomPanCharacter.h"
 
 ATopDownPlayerController::ATopDownPlayerController()
 {
@@ -25,7 +26,7 @@ void ATopDownPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	APawn* pawn = GetPawn();
-	//this->ChangeState(NAME_Spectating);
+	this->ChangeState(NAME_Spectating);
 	//Possess(pawn);
 	//SetSpectatorPawn((ASpectatorPawn*)pawn);
 	FVector pos2 = FVector(100, 100, 1000);
@@ -141,7 +142,7 @@ void ATopDownPlayerController::ProcessPlayerInput(const float DeltaTime, const b
 	if (1)
 	{
 		const ULocalPlayer* LocalPlayer = Cast<ULocalPlayer>(Player);
-		AStrategySpectatorPawn* StrategyPawn = GetStrategySpectatorPawn();
+		ASpectatorPawn* StrategyPawn = GetSpectatorPawn();
 		if ((StrategyPawn != NULL) && (LocalPlayer != NULL))
 		{
 			// Create the bounds for the minimap so we can add it as a 'no scroll' zone.
@@ -158,8 +159,8 @@ void ATopDownPlayerController::ProcessPlayerInput(const float DeltaTime, const b
 					FVector TopLeft(HUD->MiniMapMargin, ViewBottom - HUD->MiniMapMargin - MyGameState->MiniMapCamera->MiniMapHeight, 0);
 					FVector BottomRight((int32)MyGameState->MiniMapCamera->MiniMapWidth, MyGameState->MiniMapCamera->MiniMapHeight, 0);
 					FBox MiniMapBounds(TopLeft, TopLeft + BottomRight);
-					StrategyPawn->GetStrategyCameraComponent()->AddNoScrollZone(MiniMapBounds);
-					StrategyPawn->GetStrategyCameraComponent()->UpdateCameraMovement(this);
+					//StrategyPawn->GetStrategyCameraComponent()->AddNoScrollZone(MiniMapBounds);
+					//StrategyPawn->GetStrategyCameraComponent()->UpdateCameraMovement(this);
 				}
 			}
 		}
@@ -321,9 +322,17 @@ UStrategyCameraComponent* ATopDownPlayerController::GetCameraComponent() const
 
 void ATopDownPlayerController::SetCameraTarget(const FVector& CameraTarget)
 {
-	if (GetCameraComponent() != NULL)
-	{
-		GetCameraComponent()->SetCameraTarget(CameraTarget);
+	//if (GetCameraComponent() != NULL)
+	//{
+	//	GetCameraComponent()->SetCameraTarget(CameraTarget);
+	//}
+	if (GetSpectatorPawn()) {
+		FVector cur_pos = GetSpectatorPawn()->GetActorLocation();
+		cur_pos.X = CameraTarget.X;
+		cur_pos.Y = CameraTarget.Y;
+		cur_pos.Z = 223;
+		GetSpectatorPawn()->SetActorLocation(cur_pos);
 	}
+
 }
 

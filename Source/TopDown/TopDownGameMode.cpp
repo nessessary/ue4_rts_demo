@@ -7,17 +7,22 @@
 #include "CustomHUD.h"
 #include "MyActor_Spawner.h"
 #include "MyGameStateBase.h"
+#include "UE4_TopDown_ZoomPanCharacter.h"
+#include "UE4_TopDown_ZoomPanPlayerController.h"
 
 ATopDownGameMode::ATopDownGameMode()
 {
 	PlayerControllerClass = ATopDownPlayerController::StaticClass();
+	//PlayerControllerClass = AUE4_TopDown_ZoomPanPlayerController::StaticClass();
 
 	HUDClass = ACustomHUD::StaticClass();
-	//static ConstructorHelpers::FClassFinder<ASpectatorPawn> MySpectatorClass(TEXT("/Game/bluprint/MyStrategySpectatorPawn"));
+	static ConstructorHelpers::FClassFinder<ASpectatorPawn> MySpectatorClass(TEXT("/Game/bluprint/MyStrategySpectatorPawn"));
 	//if (MySpectatorClass.Class != NULL)
 	//	SpectatorClass = MySpectatorClass.Class;
 	SpectatorClass = AStrategySpectatorPawn::StaticClass();
 	DefaultPawnClass = AStrategySpectatorPawn::StaticClass();
+	SpectatorClass = AUE4_TopDown_ZoomPanCharacter::StaticClass();
+	DefaultPawnClass = AUE4_TopDown_ZoomPanCharacter::StaticClass();
 
 	GameStateClass = AMyGameStateBase::StaticClass();
 	// use our custom PlayerController class
@@ -27,6 +32,7 @@ ATopDownGameMode::ATopDownGameMode()
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		//DefaultPawnClass = PlayerPawnBPClass.Class;
+		//DefaultPawnClass = MySpectatorClass.Class;
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("ATopDownGameMode::ATopDownGameMode"));
@@ -47,7 +53,8 @@ ATopDownGameMode::ATopDownGameMode()
 void ATopDownGameMode::RestartPlayer(AController* NewPlayer)
 {
 	//return;
-	//Super::RestartPlayer(NewPlayer);
+	Super::RestartPlayer(NewPlayer);
+	return;
 	AActor* const StartSpot = FindPlayerStart(NewPlayer);
 	if (StartSpot != nullptr)
 	{

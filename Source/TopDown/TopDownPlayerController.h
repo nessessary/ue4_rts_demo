@@ -4,10 +4,11 @@
 #include "StrategySpectatorPawn.h"
 #include "StrategyCameraComponent.h"
 #include "CustomHUD.h"
+#include "UE4_TopDown_ZoomPanPlayerController.h"
 #include "TopDownPlayerController.generated.h"
 
 UCLASS()
-class ATopDownPlayerController : public APlayerController
+class ATopDownPlayerController : public AUE4_TopDown_ZoomPanPlayerController
 {
 	GENERATED_BODY()
 
@@ -18,6 +19,7 @@ public:
 	void MouseLeftMinimap();
 	void MousePressedOverMinimap();
 	void MouseReleasedOverMinimap();
+
 	AStrategySpectatorPawn* GetStrategySpectatorPawn() const;
 	UStrategyCameraComponent* GetCameraComponent() const;
 	void SetCameraTarget(const FVector& CameraTarget);
