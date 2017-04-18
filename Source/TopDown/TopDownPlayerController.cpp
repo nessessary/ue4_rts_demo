@@ -29,7 +29,7 @@ void ATopDownPlayerController::BeginPlay()
 	this->ChangeState(NAME_Spectating);
 	//Possess(pawn);
 	//SetSpectatorPawn((ASpectatorPawn*)pawn);
-	FVector pos2 = FVector(100, 100, 1000);
+	FVector pos2 = FVector(-400, -100, 223);
 	SetCameraTarget(pos2);
 
 	// Init Capture
