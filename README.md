@@ -6,6 +6,9 @@
 
 调用gen创建出sln
 
+视频
+http://v.youku.com/v_show/id_XMjcxODE5ODgzNg==.html?spm=a2h3j.8428770.3416059.1
+
 ---
 参考了https://github.com/rockhowse/UE4_TopDown_ZoomPan
 
